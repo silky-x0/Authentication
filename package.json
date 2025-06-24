@@ -1,0 +1,33 @@
+{
+  "name": "authentication",
+  "version": "1.0.0",
+  "description": "Auth techniques or so",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/silky-x0/Authentication.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/silky-x0/Authentication/issues"
+  },
+  "homepage": "https://github.com/silky-x0/Authentication#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
