@@ -4,11 +4,11 @@ This project demonstrates multiple authentication techniques in Node.js/Express 
 
 ## Implemented Authentication Methods
 
-- [x] **JWT (JSON Web Token) Authentication**
-- [x] **OAuth**
-- [x] **Basic Authentication**
-- [x] **Token Authentication**
-- [x] **Cookie Based Auth**
+- [] **JWT (JSON Web Token) Authentication**
+- [] **OAuth**
+- [] **Basic Authentication**
+- [] **Token Authentication**
+- [] **Cookie Based Auth**
 
 ## Progress
 
