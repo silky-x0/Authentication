@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 axios.defaults.withCredentials = true;
 
 function App() {
+	const navigate = useNavigate();
+
 	const login = async () => {
 		try {
 			const res = await axios.get("http://localhost:3000/");
@@ -39,6 +42,12 @@ function App() {
 					className='px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md shadow'
 				>
 					Verify Token
+				</button>
+				<button
+					onClick={() => navigate("/manage-user")}
+					className='px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md shadow'
+				>
+					Manage User
 				</button>
 			</div>
 		</div>
