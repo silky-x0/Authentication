@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import User from "../models/User";
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const app = express();
 app.use(express.json());
@@ -40,7 +41,8 @@ app.get("/v1", (req: Request, res: Response) => {
 app.post('/register', async (req: Request, res: Response) => {
   try {
     const { username, email, password, age } = req.body;
-    const user = new User({ username, email, password, age });
+	const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new User({ username, email, password: hashedPassword, age });
     await user.save();
     res.status(201).send("User registered");
   } catch (err) {
