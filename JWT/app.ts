@@ -45,7 +45,8 @@ app.post('/register', async (req: Request, res: Response) => {
 		httpOnly: true,
 		sameSite: "lax",
 		secure: false,
-		maxAge: 3600000
+		maxAge: 3600000,
+		path: "/",
 	});
 	res.send(user)
   } catch (err) {
@@ -59,7 +60,7 @@ app.get("/logout", (req: Request, res: Response) => {
 		httpOnly: true,
 		secure: false,
 		sameSite: "lax",
-		expires: new Date(0)
+		path: "/",
 	});
 	res.status(200).send("Logged out");
 });
