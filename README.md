@@ -4,11 +4,11 @@ This project demonstrates multiple authentication techniques in Node.js/Express 
 
 ## Implemented Authentication Methods
 
-- [] **JWT (JSON Web Token) Authentication**
-- [] **OAuth**
-- [] **Basic Authentication**
-- [] **Token Authentication**
-- [] **Cookie Based Auth**
+- [x] **[JWT (JSON Web Token) Authentication](./JWT/INFO.md)**
+- [ ] **[OAuth](./JWT/INFO.md)**
+- [ ] **Basic Authentication**
+- [ ] **Token Authentication**
+- [ ] **Cookie Based Auth**
 
 ## Progress
 
@@ -16,15 +16,15 @@ All authentication methods shown in the diagram have been implemented or are in 
 
 ```
 Authentication
-├── JWT 
-├── OAuth 
-├── Basic Authentication 
-├── Token Authentication 
-└── Cookie Based Auth 
+├── JWT
+├── OAuth
+├── Basic Authentication
+├── Token Authentication
+└── Cookie Based Auth
 ```
 
-- **JWT:** Secure token-based authentication using JSON Web Tokens, with tokens stored in HTTP-only cookies.
-- **OAuth:** Third-party authentication (e.g., Google, GitHub) for delegated access.
+- **[JWT](./JWT/INFO.md):** Secure token-based authentication using JSON Web Tokens, with tokens stored in HTTP-only cookies.
+- **[OAuth](./JWT/INFO.md):** Third-party authentication (e.g., Google, GitHub) for delegated access.
 - **Basic Authentication:** Username and password sent with each request (Base64 encoded).
 - **Token Authentication:** Custom tokens for API access.
 - **Cookie Based Auth:** Session or token stored in browser cookies for persistent login.
