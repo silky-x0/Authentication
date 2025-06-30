@@ -65,6 +65,45 @@ app.get("/logout", (req: Request, res: Response) => {
 	res.status(200).send("Logged out");
 });
 
+app.post("/login", async (req: Request, res: Response) => {
+	try {
+		const { email, password } = req.body;
+		const user = await User.findOne({ email });
+		if (!user) {
+			return res.status(404).send("User not found");
+		}
+		const isMatch = await bcrypt.compare(password, user.password);
+		if (!isMatch) {
+			return res.status(401).send("Invalid credentials");
+		}
+		const token = jwt.sign({ email: user.email }, "key", { expiresIn: "1h" });
+		res.cookie("token", token, {
+			httpOnly: true,
+			sameSite: "lax",
+			secure: false,
+			maxAge: 3600000,
+			path: "/",
+		});
+		res.status(200).send("Login successful");
+	} catch (err) {
+		console.error("Login error:", err);
+		res.status(500).send("Server error");
+	}
+});
+
+app.get("/v1", (req: Request, res: Response) => {
+	const token = req.cookies.token;
+	if (!token) {
+		return res.status(401).send("Not authenticated");
+	}
+	try {
+		const data = jwt.verify(token, "key");
+		res.status(200).send("Authenticated");
+	} catch (err) {
+		res.status(401).send("Invalid token");
+	}
+});
+
 app.listen(3000, () => {
 	console.log("Server is running on port 3000");
 });
