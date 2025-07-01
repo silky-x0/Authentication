@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 axios.defaults.withCredentials = true;
 
@@ -73,17 +73,19 @@ function ManageUser() {
 		}
 	};
 
+	const { loginWithRedirect, isAuthenticated, user } = useAuth0();
+
 	return (
 		<div className='w-full h-screen bg-zinc-900 flex flex-col items-center'>
 			<button
 				className={`mt-8 mb-8 px-8 py-2 rounded-full font-bold shadow ${
-					loggedIn
+					loggedIn || (isAuthenticated && user && user.email)
 						? "bg-green-500 hover:bg-green-600 text-white"
 						: "bg-red-500 hover:bg-red-600 text-white"
 				}`}
 				disabled
 			>
-				{loggedIn ? "Logged In" : "Not Logged In"}
+				{loggedIn || (isAuthenticated && user && user.email) ? "Logged In" : "Not Logged In"}
 			</button>
 			<div className='flex flex-row items-start gap-8'>
 				<form
@@ -140,47 +142,58 @@ function ManageUser() {
 						Register
 					</button>
 				</form>
-				<button
-					className='px-6 py-2 bg-red-500 hover:bg-red-700 text-white rounded-md shadow transition-colors duration-200 font-semibold self-center'
-					onClick={handleLogout}
-				>
-					Logout
-				</button>
-				<form
-					onSubmit={handleLogin}
-					className='bg-zinc-800 p-6 rounded-md shadow-md flex flex-col gap-4 w-80'
-				>
-					<h2 className='text-white text-2xl text-center font-semibold'>
-						User Login
-					</h2>
-
-					<input
-						type='email'
-						name='email'
-						placeholder='Email'
-						value={loginForm.email}
-						onChange={handleLoginChange}
-						className='px-3 py-2 rounded bg-zinc-700 text-white focus:outline-none'
-						required
-					/>
-
-					<input
-						type='password'
-						name='password'
-						placeholder='Password'
-						value={loginForm.password}
-						onChange={handleLoginChange}
-						className='px-3 py-2 rounded bg-zinc-700 text-white focus:outline-none'
-						required
-					/>
-
+				{loggedIn ? (
 					<button
-						type='submit'
-						className='bg-amber-500 hover:bg-amber-600 text-white py-2 rounded'
+						className='px-6 py-2 bg-red-500 hover:bg-red-700 text-white rounded-md shadow transition-colors duration-200 font-semibold self-center'
+						onClick={handleLogout}
 					>
-						Login
+						Logout
 					</button>
-				</form>
+				) : (
+					<form
+						onSubmit={handleLogin}
+						className='bg-zinc-800 p-6 rounded-md shadow-md flex flex-col gap-4 w-80'
+					>
+						<h2 className='text-white text-2xl text-center font-semibold'>
+							User Login
+						</h2>
+
+						<input
+							type='email'
+							name='email'
+							placeholder='Email'
+							value={loginForm.email}
+							onChange={handleLoginChange}
+							className='px-3 py-2 rounded bg-zinc-700 text-white focus:outline-none'
+							required
+						/>
+
+						<input
+							type='password'
+							name='password'
+							placeholder='Password'
+							value={loginForm.password}
+							onChange={handleLoginChange}
+							className='px-3 py-2 rounded bg-zinc-700 text-white focus:outline-none'
+							required
+						/>
+
+						<button
+							type='submit'
+							className='bg-amber-500 hover:bg-amber-600 text-white py-2 rounded'
+						>
+							Login
+						</button>
+					</form>
+				)}
+			</div>
+			<div className='flex flex-col gap-5 m-7'>
+				<button
+					onClick={() => loginWithRedirect()}
+					className=' rounded-md text-white bg-black p-3'
+				>
+					Login Via OAuth
+				</button>
 			</div>
 		</div>
 	);
